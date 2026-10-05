@@ -1,0 +1,14 @@
+Jan 15 02:14:33 server01 sshd[1234]: Failed password for invalid user admin from 192.168.40.10 port 54321 ssh2
+Jan 15 02:14:35 server01 sshd[1234]: Failed password for invalid user admin from 192.168.40.10 port 54322 ssh2
+Jan 15 02:14:38 server01 sshd[1234]: Failed password for root from 10.0.0.55 port 54323 ssh2
+Jan 15 08:23:11 server01 sshd[5678]: Accepted password for jsmith from 192.168.1.100 port 48291 ssh2
+Jan 15 02:15:01 server01 sshd[1234]: Failed password for invalid user administrator from 192.168.40.10 port 54324 ssh2
+Jan 15 09:15:22 server01 sudo[9012]: authentication failure; logname=bwright uid=1001 euid=0 tty=/dev/pts/0
+Jan 15 02:15:33 server01 sshd[1234]: Failed password for root from 185.220.101.42 port 54325 ssh2
+Jan 15 02:15:44 server01 sshd[1234]: Failed password for root from 185.220.101.42 port 54326 ssh2
+Jan 15 10:44:01 server01 sshd[2345]: Accepted publickey for deploy from 192.168.1.50 port 44123 ssh2
+Jan 15 02:16:01 server01 sshd[1234]: Failed password for invalid user pi from 185.220.101.42 port 54327 ssh2
+Jan 15 02:16:15 server01 sshd[1234]: Failed password for root from 192.168.40.10 port 54328 ssh2
+Jan 15 11:02:44 server01 sshd[3456]: Accepted password for htorres from 192.168.1.101 port 52100 ssh2
+Jan 15 02:17:01 server01 sshd[1234]: Failed password for invalid user oracle from 185.220.101.42 port 54329 ssh2
+Jan 15 14:23:15 server01 sshd[4567]: Failed password for deploy from 192.168.1.200 port 55100 ssh2
