@@ -50,3 +50,78 @@ echo "[*] Report: $REPORT_FILE"
 } >> "$REPORT_FILE"
 
 echo "[+] Login history collected."
+
+
+# --- Section 2: Critical Service Status ---
+{
+    echo "======================================================="
+    echo "  CRITICAL SERVICE STATUS"
+    echo "======================================================="
+    echo ""
+
+    # List of services to check
+    SERVICES=("ssh" "cron" "wazuh-agent" "ufw")
+
+    for service in "${SERVICES[@]}"; do
+        if systemctl is-active --quiet "$service"; then
+            STATUS="RUNNING "
+        else
+            STATUS="STOPPED "
+        fi
+        echo "  [$STATUS] $service"
+    done
+    echo ""
+} >> "$REPORT_FILE"
+
+echo "[+] Service status collected."
+
+# --- Section 3: Active Network Connections ---
+{
+    echo "======================================================="
+    echo "  ACTIVE NETWORK CONNECTIONS"
+    echo "======================================================="
+    echo ""
+    echo "--- Listening ports ---"
+    ss -tlnp 2>/dev/null
+    echo ""
+    echo "--- Established connections ---"
+    ss -tunp 2>/dev/null | grep "ESTAB"
+    echo ""
+} >> "$REPORT_FILE"
+
+echo "[+] Network connections collected."
+
+# --- Section 4: Recently Modified Shell Scripts (last 7 days) ---
+{
+    echo "======================================================="
+    echo "  RECENTLY MODIFIED SHELL SCRIPTS (past 7 days)"
+    echo "======================================================="
+    echo ""
+    RECENT_SCRIPTS=$(find /home /root /tmp -name "*.sh" -newer /etc/passwd \
+        -type f 2>/dev/null)
+
+    if [ -z "$RECENT_SCRIPTS" ]; then
+        echo "  None found."
+    else
+        echo "  *** Shell scripts modified recently: ***"
+        echo "$RECENT_SCRIPTS" | while read -r filepath; do
+            MODIFIED=$(stat -c "%y" "$filepath" 2>/dev/null | cut -d'.' -f1)
+            echo "  $filepath  (modified: $MODIFIED)"
+        done
+    fi
+    echo ""
+} >> "$REPORT_FILE"
+
+echo "[+] Shell script check complete."
+
+# --- Report Complete ---
+{
+    echo "======================================================="
+    echo "  Snapshot complete: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "======================================================="
+} >> "$REPORT_FILE"
+
+echo ""
+echo "[+] Security snapshot complete."
+echo "[+] Report saved to: $REPORT_FILE"
+echo ""
